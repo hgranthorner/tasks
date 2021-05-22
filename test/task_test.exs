@@ -3,8 +3,10 @@ defmodule TaskTest do
 	alias Tasks.Task
 	doctest Task
 
+	@today Date.utc_today()
+
 	test "creates a new task" do
-		assert Task.new("a") == %Task{name: "a", description: "", assigned_to: "Unassigned", created_at: Date.utc_today()}
+		assert %Task{name: "a", description: "", assigned_to: "Unassigned", created_at: @today} = Task.new("a")
 	end
 
 	test "new tasks have the correct date" do

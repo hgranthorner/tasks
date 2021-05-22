@@ -1,5 +1,7 @@
 defmodule Tasks.Task do
-	defstruct [:name, description: "", created_at: Date.utc_today(), assigned_to: "Unassigned"]
+	defstruct [:name, id: UUID.uuid4(), description: "", created_at: Date.utc_today(), assigned_to: "Unassigned"]
+
+	@type keys :: [description: String.t(), created_at: Date.t(), assigned_to: String.t()]
 
 	@type t :: %__MODULE__{
 		name: String.t(),
@@ -19,7 +21,7 @@ defmodule Tasks.Task do
 		%Task{name: "a name", description: "", created_at: Date.utc_today(), assigned_to: "you"}
 	
 	"""
-	@spec new(String.t(), [description: String.t(), created_at: Date.t(), assigned_to: String.t()]) :: t()
+	@spec new(String.t(), keys) :: t()
 	def new(name, opts \\ []) do
 		%__MODULE__{name: name}
 		|> try_add(opts, :description)
@@ -28,7 +30,7 @@ defmodule Tasks.Task do
 	end
 
 
-	@spec try_add(t(), [description: String.t(), created_at: Date.t(), assigned_to: String.t()], atom()) :: t()
+	@spec try_add(t(), keys, atom()) :: t()
 	defp try_add(%__MODULE__{} = task, opts, key) do
 		if Keyword.has_key?(opts, key) do
 			%{task | key => Keyword.get(opts, key)}
