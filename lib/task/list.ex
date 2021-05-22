@@ -8,8 +8,7 @@ defmodule Tasks.Task.List do
   @doc """
   Create the server.
   """
-  def start_link(name) do
-    IO.puts("Creating task server.")
+  def start_link(name) when is_binary(name) do
     GenServer.start_link(__MODULE__, name)
   end
 

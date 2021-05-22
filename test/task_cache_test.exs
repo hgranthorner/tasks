@@ -23,7 +23,7 @@ defmodule TaskCacheTest do
   test "creates new lists as needed", %{pid: pid} do
     matt_pid = Task.Cache.get(pid, "Matt")
     Task.List.add(matt_pid, "a thing")
-    tasks = Task.List.get_tasks(matt_pid) |> IO.inspect
+    tasks = Task.List.get_tasks(matt_pid)
     assert length(tasks) == 1
   end
 end
