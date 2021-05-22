@@ -12,16 +12,12 @@ defmodule Tasks.Task.Server do
   end
 
   @doc """
-  Add a task by name. The task is created internally.
+  Add a task.
   """
   @spec add(pid(), String.t()) :: atom()
   def add(pid, name) when is_binary(name) do
     GenServer.call(pid, {:add, Task.new(name)})
   end
-
-  @doc """
-  Add a task struct.
-  """
   @spec add(pid(), Task.t()) :: atom()
   def add(pid, %Task{} = task) do
     GenServer.call(pid, {:add, task})
