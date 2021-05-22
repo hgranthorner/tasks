@@ -10,6 +10,14 @@ defmodule Tasks.Task do
 
 	@doc """
 	Creates a new task.
+
+	Returns the task.
+
+	## Examples
+
+		iex> Tasks.Task.new("a name", assigned_to: "you")
+		%Task{name: "a name", description: "", created_at: Date.utc_today(), assigned_to: "you"}
+	
 	"""
 	@spec new(String.t(), [description: String.t(), created_at: Date.t(), assigned_to: String.t()]) :: t()
 	def new(name, opts \\ []) do
