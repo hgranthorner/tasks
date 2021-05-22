@@ -1,14 +1,16 @@
-defmodule Tasks.Task.Server do
+defmodule Tasks.Task.List do
   use GenServer
   alias Tasks.Task
+
+  @type state :: {String.t(), list(Task.t())}
+  @type call_res(t) :: {:reply, t, state}
 
   @doc """
   Create the server.
   """
-  @spec start_link(list(Task.t())) :: pid()
-  def start_link(default) when is_list(default) do
+  def start_link(name) do
     IO.puts("Creating task server.")
-    GenServer.start_link(__MODULE__, default)
+    GenServer.start_link(__MODULE__, name)
   end
 
   @doc """
@@ -32,17 +34,18 @@ defmodule Tasks.Task.Server do
   end
 
   @impl true
-  def init(opts \\ []) do
-    {:ok, opts}
+  def init(name) do
+    {:ok, {name, []}}
   end
 
   @impl true
-  def handle_call(:get, _from, tasks) do
-    {:reply, tasks, tasks}
+  @spec handle_call(atom(), pid(), state) :: call_res([Task.t()])
+  def handle_call(:get, _from, {_, tasks} = state) do
+    {:reply, tasks, state}
   end
 
   @impl true
-  def handle_call({:add, task}, _from, tasks) do
-    {:reply, :ok, [task | tasks]}
+  def handle_call({:add, task}, _from, {name, tasks}) do
+    {:reply, :ok, {name, [%Task{task | assigned_to: name} | tasks]}}
   end
 end
