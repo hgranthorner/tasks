@@ -1,5 +1,5 @@
 defmodule TaskTest do
-	use ExUnit.Case
+	use ExUnit.Case, async: true
 	alias Tasks.Task
 	doctest Task
 
