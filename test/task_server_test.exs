@@ -17,7 +17,7 @@ defmodule TaskServerTest do
     :ok = Server.add(pid, Task.new("test"))
     tasks = Server.get_tasks(pid)
     assert length(tasks) == 1
-    :ok = Server.add(pid, Task.new("test 2"))
+    :ok = Server.add(pid, "test 2")
     tasks = Server.get_tasks(pid)
     assert length(tasks) == 2
   end
