@@ -22,6 +22,7 @@ defmodule Tasks.Task.Cache do
   def handle_call({:get, name}, _from, map) do
     normalized_name = String.downcase(name)
     pid = Map.get(map, normalized_name)
+
     if pid do
       {:reply, pid, map}
     else

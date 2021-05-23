@@ -6,7 +6,7 @@ defmodule TaskCacheTest do
     pid = start_supervised!(Task.Cache)
     unassigned_pid = Task.Cache.get(pid, "unassigned")
     Task.List.add(unassigned_pid, "a task")
-  
+
     [pid: pid]
   end
 

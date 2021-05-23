@@ -4,7 +4,7 @@ defmodule TaskListTest do
 
   setup do
     pid = start_supervised!({Task.List, "name"})
-  
+
     [pid: pid]
   end
 

@@ -19,6 +19,7 @@ defmodule Tasks.Task.List do
   def add(pid, name) when is_binary(name) do
     GenServer.call(pid, {:add, Task.new(name)})
   end
+
   @spec add(pid(), Task.t()) :: atom()
   def add(pid, %Task{} = task) do
     GenServer.call(pid, {:add, task})

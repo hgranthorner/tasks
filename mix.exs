@@ -5,9 +5,10 @@ defmodule Tasks.MixProject do
     [
       app: :tasks,
       version: "0.1.0",
-      elixir: "~> 1.11",
+      elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      exclude: [:crypto]
     ]
   end
 
@@ -21,7 +22,7 @@ defmodule Tasks.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      { :uuid, "~> 1.1.8" }
+      {:uuid, "~> 1.1.8"}
     ]
   end
 end
